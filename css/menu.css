@@ -152,6 +152,7 @@ body { background: #f1e6c9; }
 @media (max-width: 600px) {
   body { padding: 10px; }
   .logo { font-size: 40px; letter-spacing: 8px; }
+  .item-lists { grid-template-columns: 1fr; }
   .category-title { font-size: 25px; }
   .item { grid-template-columns: 1fr 52px 52px; min-height: 54px; }
   .item-name { font-size: 17px; letter-spacing: 1px; }
