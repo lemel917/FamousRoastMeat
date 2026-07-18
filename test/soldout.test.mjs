@@ -14,12 +14,13 @@ test("空狀態不標任何品項", () => {
   assert.equal(resolveSoldOutIds(null, INGREDIENTS).size, 0);
 });
 
-test("叉燒賣完會標到所有含叉燒的品項，且不誤標燒鴨飯", () => {
+test("叉燒賣完會標到所有含叉燒的飯類，且不誤標燒鴨飯或拼盤叉燒一份", () => {
   const s = resolveSoldOutIds({ chashao: true }, INGREDIENTS);
-  for (const id of ["b01", "b03", "b04", "b05", "b06", "b09", "b16", "b18", "p07"]) {
+  for (const id of ["b01", "b03", "b04", "b05", "b06", "b09", "b16", "b18"]) {
     assert.ok(s.has(id), `應含 ${id}`);
   }
   assert.ok(!s.has("b02"), "不應含 b02 燒鴨飯");
+  assert.ok(!s.has("p07"), "食材開關不連動拼盤，不應含 p07 叉燒一份");
 });
 
 test("三寶飯(b05)受叉燒/燒鴨/油雞任一影響", () => {
@@ -33,9 +34,14 @@ test("叉燒恢復但燒鴨仍賣完：三寶飯仍標、叉燒飯恢復", () =>
   assert.ok(!s.has("b01"), "叉燒飯恢復（只有叉燒管到）");
 });
 
-test("雙重控制：p09 由油雞或自身開關任一觸發", () => {
-  assert.ok(resolveSoldOutIds({ youji: true }, INGREDIENTS).has("p09"));
+test("拼盤單品只由自身開關控制，不受食材開關連動", () => {
+  // 油雞賣完不應連動油雞腿一隻(p09)；叉燒不連動叉燒一份(p07)；燒肉不連動燒肉一份(p08)
+  assert.ok(!resolveSoldOutIds({ youji: true }, INGREDIENTS).has("p09"), "油雞不應連動 p09");
+  assert.ok(!resolveSoldOutIds({ chashao: true }, INGREDIENTS).has("p07"), "叉燒不應連動 p07");
+  assert.ok(!resolveSoldOutIds({ shaorou: true }, INGREDIENTS).has("p08"), "燒肉不應連動 p08");
+  // 但自身開關仍可獨立標賣完
   assert.ok(resolveSoldOutIds({ p09: true }, INGREDIENTS).has("p09"));
+  assert.ok(resolveSoldOutIds({ p07: true }, INGREDIENTS).has("p07"));
 });
 
 test("臘腸賣完連動 5 項", () => {
