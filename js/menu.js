@@ -12,15 +12,12 @@ function renderCategory(cat) {
 
   const head = document.createElement("div");
   head.className = "category-head";
-  head.innerHTML =
-    `<span class="category-badge">${cat.badge}</span>` +
-    `<h2 class="category-title">${cat.title}</h2>`;
+  head.innerHTML = `<h2 class="category-title">${cat.title}</h2>`;
   section.append(head);
 
-  // 便當在寬螢幕分成左右兩欄（各自帶「一般｜加肉」欄位標頭），拼盤單欄
-  const groups = cat.columns
-    ? [cat.items.slice(0, Math.ceil(cat.items.length / 2)), cat.items.slice(Math.ceil(cat.items.length / 2))]
-    : [cat.items];
+  // 兩大分類內部都再分左右兩子欄（近乎對半）
+  const half = Math.ceil(cat.items.length / 2);
+  const groups = [cat.items.slice(0, half), cat.items.slice(half)];
 
   const lists = document.createElement("div");
   lists.className = "item-lists";
@@ -33,7 +30,14 @@ function renderCategory(cat) {
       cols.innerHTML = `<span></span><span>${cat.columns[0]}</span><span>${cat.columns[1]}</span>`;
       ul.append(cols);
     }
-    for (const item of group) ul.append(renderItem(item, Boolean(cat.columns)));
+    for (const item of group) {
+      if (item.sectionBreak) {
+        const br = document.createElement("li");
+        br.className = "section-break";
+        ul.append(br);
+      }
+      ul.append(renderItem(item, Boolean(cat.columns)));
+    }
     lists.append(ul);
   }
   section.append(lists);

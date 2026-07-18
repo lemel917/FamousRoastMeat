@@ -3,7 +3,6 @@
 const MENU_DATA = {
   bento: {
     title: "飯類主餐",
-    badge: "飯",
     columns: ["一般", "加肉"],
     items: [
       { id: "b01", name: "叉燒飯", price: 130, priceExtra: 190, tag: "人氣" },
@@ -30,7 +29,6 @@ const MENU_DATA = {
   },
   platter: {
     title: "燒臘拼盤與單點",
-    badge: "盤",
     items: [
       { id: "p01", name: "美味雙拼", price: 280, tag: "人氣" },
       { id: "p02", name: "美味三拼", price: 380, note: "三人份" },
