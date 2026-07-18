@@ -71,12 +71,21 @@ const db = getDatabase(app);
 const soldOutRef = ref(db, "soldOut");
 
 // 開關狀態一律以 onValue 快照為準：寫入成功會回推、多裝置同開後台也會同步
-onValue(soldOutRef, (snap) => {
-  bannerDismissed = true;
-  banner.hidden = true;
-  const soldOut = snap.val() ?? {};
-  for (const [id, input] of toggles) input.checked = soldOut[id] === true;
-});
+onValue(
+  soldOutRef,
+  (snap) => {
+    bannerDismissed = true;
+    banner.hidden = true;
+    const soldOut = snap.val() ?? {};
+    for (const [id, input] of toggles) input.checked = soldOut[id] === true;
+  },
+  (error) => {
+    banner.textContent = "賣完狀態同步失敗，開關顯示可能不是最新";
+    bannerDismissed = false;
+    banner.hidden = adminView.hidden;
+    console.error("Firebase 同步錯誤：", error);
+  }
+);
 
 function saveToggle(id, input) {
   const target = ref(db, "soldOut/" + id);
