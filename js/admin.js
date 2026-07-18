@@ -34,32 +34,61 @@ document.getElementById("logout").addEventListener("click", () => {
 });
 
 // ===== 品項清單 =====
-const toggles = new Map(); // id -> checkbox element
+const toggles = new Map(); // 開關 id（食材 id 或拼盤品項 id）-> checkbox element
+
+// 品項 id -> 品名（給食材開關顯示「影響哪些品項」）
+const nameById = new Map();
+for (const cat of [MENU_DATA.bento, MENU_DATA.platter]) {
+  for (const item of cat.items) nameById.set(item.id, item.name);
+}
+
+// 建立一列開關；affected 有值時多顯示一行灰色「影響哪些品項」小字
+function makeSwitchLi({ id, label, affected }) {
+  const li = document.createElement("li");
+  li.className = affected ? "admin-item admin-item--ingredient" : "admin-item";
+  const affectedHtml = affected
+    ? `<p class="affected">影響 ${affected.length} 項：${affected.map((x) => nameById.get(x)).join("、")}</p>`
+    : "";
+  li.innerHTML =
+    `<div class="admin-item-row">` +
+      `<span class="admin-name">${label}</span>` +
+      `<label class="switch">` +
+        `<input type="checkbox" data-id="${id}">` +
+        `<span class="slider"></span>` +
+        `<span class="state"></span>` +
+      `</label>` +
+    `</div>` +
+    affectedHtml;
+  const input = li.querySelector("input");
+  toggles.set(id, input);
+  input.addEventListener("change", () => saveToggle(id, input));
+  return li;
+}
 
 function renderItems() {
   const rootEl = document.getElementById("admin-root");
-  for (const cat of [MENU_DATA.bento, MENU_DATA.platter]) {
-    const h2 = document.createElement("h2");
-    h2.className = "admin-cat";
-    h2.textContent = cat.title;
-    const list = document.createElement("ul");
-    list.className = "admin-list";
-    for (const item of cat.items) {
-      const li = document.createElement("li");
-      li.innerHTML =
-        `<span class="admin-name">${item.name}</span>` +
-        `<label class="switch">` +
-        `<input type="checkbox" data-id="${item.id}">` +
-        `<span class="slider"></span>` +
-        `<span class="state"></span>` +
-        `</label>`;
-      const input = li.querySelector("input");
-      toggles.set(item.id, input);
-      input.addEventListener("change", () => saveToggle(item.id, input));
-      list.append(li);
-    }
-    rootEl.append(h2, list);
+
+  // 飯類主餐：6 個食材開關
+  const h2a = document.createElement("h2");
+  h2a.className = "admin-cat";
+  h2a.textContent = "飯類主餐（食材開關）";
+  const listA = document.createElement("ul");
+  listA.className = "admin-list";
+  for (const ing of INGREDIENTS) {
+    listA.append(makeSwitchLi({ id: ing.id, label: ing.name, affected: ing.items }));
   }
+
+  // 燒臘拼盤與單點：每品項一個開關
+  const h2b = document.createElement("h2");
+  h2b.className = "admin-cat";
+  h2b.textContent = MENU_DATA.platter.title;
+  const listB = document.createElement("ul");
+  listB.className = "admin-list";
+  for (const item of MENU_DATA.platter.items) {
+    listB.append(makeSwitchLi({ id: item.id, label: item.name }));
+  }
+
+  rootEl.append(h2a, listA, h2b, listB);
 }
 
 function saveToggle(id, input) {
