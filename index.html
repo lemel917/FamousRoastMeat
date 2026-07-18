@@ -13,6 +13,32 @@
 <body>
   <div id="sync-banner">賣完狀態同步中，請稍候⋯</div>
 
+  <!-- 裝飾用藍蝴蝶：每隔幾秒沿路徑飛過菜單（純 CSS 動畫，不擋點擊） -->
+  <div class="butterfly" aria-hidden="true">
+    <svg viewBox="0 0 64 64">
+      <defs>
+        <linearGradient id="bwing" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8ab6ff"/>
+          <stop offset="1" stop-color="#2f5fc4"/>
+        </linearGradient>
+      </defs>
+      <g class="wing wing-l">
+        <path d="M30 32 C 12 8, 2 14, 6 26 C 8 34, 18 36, 30 32 Z" fill="url(#bwing)"/>
+        <path d="M30 34 C 14 46, 8 54, 16 56 C 24 58, 30 46, 30 36 Z" fill="url(#bwing)" opacity=".85"/>
+        <circle cx="14" cy="24" r="2.2" fill="#dbe9ff" opacity=".9"/>
+      </g>
+      <g class="wing wing-r">
+        <path d="M34 32 C 52 8, 62 14, 58 26 C 56 34, 46 36, 34 32 Z" fill="url(#bwing)"/>
+        <path d="M34 34 C 50 46, 56 54, 48 56 C 40 58, 34 46, 34 36 Z" fill="url(#bwing)" opacity=".85"/>
+        <circle cx="50" cy="24" r="2.2" fill="#dbe9ff" opacity=".9"/>
+      </g>
+      <ellipse cx="32" cy="34" rx="2.6" ry="10" fill="#28365a"/>
+      <circle cx="32" cy="23" r="3" fill="#28365a"/>
+      <path d="M30 21 C 27 16, 24 14, 22 13 M34 21 C 37 16, 40 14, 42 13"
+            stroke="#28365a" fill="none" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </div>
+
   <div class="sheet">
     <header class="menu-header">
       <h1 class="logo"><img class="logo-img" src="assets/logo-title.png" alt="名門燒臘"></h1>
