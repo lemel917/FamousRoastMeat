@@ -1,0 +1,36 @@
+:root {
+  --bg: #ece0c4;      /* 頁面米色底 */
+  --paper: #f9f2df;   /* 菜單紙色 */
+  --line: #d3c197;    /* 分隔線 */
+  --brown: #8a6a3b;   /* 主棕色 */
+  --ink: #4a3b22;     /* 內文深棕 */
+  --red: #b02a1c;     /* 價格紅 */
+  --gold: #a5772e;    /* 金色點綴 */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Noto Serif TC", "PMingLiU", "Microsoft JhengHei", serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { cursor: pointer; font-family: inherit; }
+
+/* 尚未收到 Firebase 第一筆資料前顯示的同步提示 */
+#sync-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  background: var(--brown);
+  color: #fff;
+  text-align: center;
+  padding: 6px 12px;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+#sync-banner[hidden] { display: none; }
