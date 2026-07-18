@@ -53,7 +53,7 @@ body { background: #f1e6c9; }
 .category-title {
   display: inline-block;
   position: relative;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 900;
   letter-spacing: 6px;
   color: #3a2c14;
@@ -73,8 +73,8 @@ body { background: #f1e6c9; }
 
 .price-cols {
   display: grid;
-  grid-template-columns: 1fr 74px 74px;
-  font-size: 15px;
+  grid-template-columns: 1fr 82px 82px;
+  font-size: 16px;
   color: #8c7a55;
   text-align: right;
   padding: 4px 0;
@@ -83,9 +83,9 @@ body { background: #f1e6c9; }
 .item {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 74px 74px;
+  grid-template-columns: 1fr 82px 82px;
   align-items: center;
-  min-height: 58px;
+  min-height: 62px;
   padding: 8px 0;
   border-bottom: 1px dotted var(--line);
 }
@@ -99,18 +99,18 @@ body { background: #f1e6c9; }
   list-style: none;
 }
 
-.item-name { font-size: 22px; font-weight: 500; letter-spacing: 2px; color: #2e2415; }
+.item-name { font-size: 25px; font-weight: 500; letter-spacing: 2px; color: #2e2415; }
 .price {
   color: var(--red);
   font-weight: 700;
-  font-size: 27px;
+  font-size: 30px;
   text-align: right;
   font-family: Georgia, "Noto Serif TC", serif;
 }
 .tag {
   background: var(--red);
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   border-radius: 999px;
   padding: 2px 8px;
   margin-left: 8px;
@@ -118,7 +118,7 @@ body { background: #f1e6c9; }
   letter-spacing: 1px;
 }
 .tag-signature { background: var(--gold); }
-.note { font-size: 14px; color: #8c7a55; margin-left: 4px; }
+.note { font-size: 15px; color: #8c7a55; margin-left: 4px; }
 
 /* ===== 賣完狀態 ===== */
 .item .stamp { display: none; }
@@ -137,7 +137,7 @@ body { background: #f1e6c9; }
   background: rgba(249, 242, 223, 0.9);
   border-radius: 4px;
   padding: 1px 10px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 3px;
 }
@@ -158,10 +158,10 @@ body { background: #f1e6c9; }
   body { padding: 10px; }
   .logo-img { height: 54px; }
   .item-lists { grid-template-columns: 1fr; }
-  .category-title { font-size: 28px; }
-  .item { grid-template-columns: 1fr 64px 64px; min-height: 58px; }
-  .item-name { font-size: 20px; letter-spacing: 1px; }
-  .price { font-size: 23px; }
+  .category-title { font-size: 30px; }
+  .item { grid-template-columns: 1fr 70px 70px; min-height: 62px; }
+  .item-name { font-size: 21px; letter-spacing: 1px; }
+  .price { font-size: 25px; }
 }
 
 /* ===== 微動效 ===== */
