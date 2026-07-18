@@ -1,5 +1,8 @@
 // 菜單頁：先用本地 MENU_DATA 渲染（離線也看得到菜單），賣完狀態由 Firebase 即時套用（Task 4）。
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
 function renderMenu() {
   const root = document.getElementById("menu-root");
   root.append(renderCategory(MENU_DATA.bento), renderCategory(MENU_DATA.platter));
@@ -67,5 +70,25 @@ function applySoldOut(soldOut) {
 }
 
 renderMenu();
+
+// ===== Firebase 即時同步 =====
+// sync-banner 預設顯示；收到第一筆快照才隱藏。連線失敗時 onValue 不會觸發，
+// 提示會一直留著（菜單本身仍照常顯示）——這就是規格要的「同步中」降級行為。
+const app = initializeApp(FIREBASE_CONFIG);
+const db = getDatabase(app);
+const banner = document.getElementById("sync-banner");
+
+onValue(
+  ref(db, "soldOut"),
+  (snapshot) => {
+    banner.hidden = true;
+    applySoldOut(snapshot.val() ?? {});
+  },
+  (error) => {
+    banner.textContent = "賣完狀態同步失敗，顯示的供應狀態可能不是最新";
+    banner.hidden = false;
+    console.error("Firebase 同步錯誤：", error);
+  }
+);
 
 export { renderMenu, applySoldOut };
