@@ -2,7 +2,7 @@
 // id 是品項的固定編號，Firebase 的賣完狀態靠它對應，「不要」更動既有 id。
 const MENU_DATA = {
   bento: {
-    title: "便當",
+    title: "飯類主餐",
     badge: "飯",
     columns: ["一般", "加肉"],
     items: [
@@ -12,6 +12,7 @@ const MENU_DATA = {
       { id: "b04", name: "叉雞飯", price: 135, priceExtra: 195 },
       { id: "b05", name: "三寶飯", price: 135, priceExtra: 195, tag: "人氣" },
       { id: "b06", name: "三燒飯", price: 135, priceExtra: 195 },
+      { id: "b20", name: "自選三寶飯", price: 135, priceExtra: 195 },
       { id: "b07", name: "雞鴨飯", price: 135, priceExtra: 195 },
       { id: "b08", name: "燒肉飯", price: 135, priceExtra: 195 },
       { id: "b09", name: "燒肉叉燒飯", price: 135, priceExtra: 195 },
@@ -28,7 +29,7 @@ const MENU_DATA = {
     ],
   },
   platter: {
-    title: "燒臘拼盤",
+    title: "燒臘拼盤與單點",
     badge: "盤",
     items: [
       { id: "p01", name: "美味雙拼", price: 280, tag: "人氣" },
@@ -42,6 +43,19 @@ const MENU_DATA = {
       { id: "p09", name: "油雞腿 一隻", price: 110 },
       { id: "p10", name: "鴨腿 一隻", price: 140 },
       { id: "p11", name: "滷蛋 一顆", price: 15 },
+      { id: "p12", name: "優選二號紅茶", price: 40, sectionBreak: true },
+      { id: "p13", name: "每日例湯", price: 40 },
     ],
   },
 };
+
+// 食材開關 → 連動品項對照表（賣完換算的單一事實來源）。
+// 任一食材賣完，其 items 內所有品項都標賣完；b20 自選三寶飯不屬任何食材，永遠供應。
+const INGREDIENTS = [
+  { id: "chashao", name: "叉燒", items: ["b01", "b03", "b04", "b05", "b06", "b09", "b16", "b18", "p07"] },
+  { id: "shaorou", name: "燒肉", items: ["b06", "b08", "b09", "b10", "b11", "b12", "p08"] },
+  { id: "shaoya", name: "燒鴨", items: ["b02", "b03", "b05", "b06", "b07", "b11", "b14", "b18"] },
+  { id: "youji", name: "油雞", items: ["b04", "b05", "b07", "b10", "b15", "b17", "b18", "p09"] },
+  { id: "yatui", name: "鴨腿飯", items: ["b19"] },
+  { id: "lachang", name: "臘腸", items: ["b12", "b13", "b14", "b15", "b16"] },
+];
