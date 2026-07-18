@@ -1,0 +1,142 @@
+/* ===== 菜單紙外框（仿 PDF 雙線圓角框） ===== */
+.sheet {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: var(--paper);
+  border: 2px solid var(--brown);
+  outline: 1px solid var(--brown);
+  outline-offset: 4px;
+  border-radius: 14px;
+  padding: 32px 44px 24px;
+}
+
+/* ===== 頁首 ===== */
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+}
+.logo { font-size: 44px; font-weight: 900; letter-spacing: 6px; color: #2e2415; }
+.logo-sub { font-size: 10px; letter-spacing: 4px; color: var(--gold); }
+.slogan { font-size: 22px; font-weight: 700; letter-spacing: 8px; color: var(--brown); }
+.slogan-en { font-size: 10px; letter-spacing: 5px; color: var(--gold); text-align: right; margin-top: 4px; }
+
+/* ===== 兩大分類左右排 ===== */
+.menu-columns {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 40px;
+  padding-top: 24px;
+}
+
+.category-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.category-badge {
+  border: 1px solid var(--brown);
+  color: var(--brown);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 15px;
+}
+.category-title {
+  background: linear-gradient(#8a6a3b, #6d5227);
+  color: #f7edd2;
+  border: 1px solid #503c1e;
+  border-radius: 6px;
+  padding: 5px 24px;
+  font-size: 22px;
+  letter-spacing: 14px;
+  text-indent: 14px; /* 平衡 letter-spacing 造成的右偏 */
+}
+
+/* ===== 品項列 ===== */
+.item-lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0 44px; }
+.item-list { list-style: none; }
+
+.price-cols {
+  display: grid;
+  grid-template-columns: 1fr 60px 60px;
+  font-size: 13px;
+  color: #8c7a55;
+  text-align: right;
+  padding: 4px 0;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 60px 60px;
+  align-items: center;
+  min-height: 52px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.item.platter { grid-template-columns: 1fr auto; }
+
+.item-name { font-size: 18px; font-weight: 500; letter-spacing: 2px; }
+.price {
+  color: var(--red);
+  font-weight: 700;
+  font-size: 21px;
+  text-align: right;
+  font-family: Georgia, "Noto Serif TC", serif;
+}
+.tag {
+  background: var(--red);
+  color: #fff;
+  font-size: 11px;
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: 3px;
+  letter-spacing: 1px;
+}
+.tag-signature { background: var(--gold); }
+.note { font-size: 12px; color: #8c7a55; margin-left: 4px; }
+
+/* ===== 賣完狀態 ===== */
+.item .stamp { display: none; }
+.item.sold-out .item-name,
+.item.sold-out .note { color: #b5a988; }
+.item.sold-out .tag { opacity: 0.4; }
+.item.sold-out .price { color: #b5a988; text-decoration: line-through; }
+.item.sold-out .stamp {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  border: 2px solid var(--red);
+  color: var(--red);
+  background: rgba(249, 242, 223, 0.9);
+  border-radius: 4px;
+  padding: 1px 10px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.menu-footer {
+  text-align: center;
+  letter-spacing: 8px;
+  color: #8c7a55;
+  font-size: 14px;
+  padding-top: 24px;
+}
+
+/* ===== RWD ===== */
+@media (max-width: 960px) {
+  .menu-columns { grid-template-columns: 1fr; gap: 28px; }
+  .sheet { padding: 24px 20px; }
+  .menu-header { flex-direction: column; gap: 10px; text-align: center; }
+  .slogan-en { text-align: center; }
+}
+@media (max-width: 600px) {
+  body { padding: 10px; }
+  .logo { font-size: 34px; }
+  .slogan { font-size: 18px; letter-spacing: 5px; }
+  .item { grid-template-columns: 1fr 52px 52px; min-height: 56px; }
+  .item-name { font-size: 17px; letter-spacing: 1px; }
+  .price { font-size: 19px; }
+}

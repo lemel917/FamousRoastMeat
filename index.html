@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名門燒臘｜電子菜單</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+<body>
+  <div id="sync-banner">賣完狀態同步中，請稍候⋯</div>
+
+  <div class="sheet">
+    <header class="menu-header">
+      <div class="brand">
+        <h1 class="logo">名門燒臘</h1>
+        <p class="logo-sub">MINGMEN SHAOLA</p>
+      </div>
+      <div class="header-right">
+        <p class="slogan">招牌燒臘・精選便當</p>
+        <p class="slogan-en">MING MEN SHAO LA</p>
+      </div>
+    </header>
+
+    <main id="menu-root" class="menu-columns"></main>
+
+    <footer class="menu-footer">現點現切・外帶歡迎</footer>
+  </div>
+
+  <script src="menu-data.js"></script>
+  <script type="module" src="js/menu.js"></script>
+</body>
+</html>
