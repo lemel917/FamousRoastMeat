@@ -158,3 +158,35 @@ body { background: #f1e6c9; }
   .item-name { font-size: 17px; letter-spacing: 1px; }
   .price { font-size: 19px; }
 }
+
+/* ===== 微動效 ===== */
+/* 進場：淡入＋上浮，依索引 stagger；fill 用 backwards 才不會鎖住 hover 的 transform */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.category-head { animation: fade-up .4s ease backwards; }
+.item {
+  animation: fade-up .4s ease backwards;
+  animation-delay: calc(var(--i, 0) * 40ms);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.item .item-name, .item .note, .item .price { transition: color .3s ease; }
+
+/* hover/觸碰：微抬＋淡陰影 */
+.item:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(74, 59, 34, .12); }
+
+/* 蓋章：只有「狀態轉為賣完」時加 .stamping 播放一次 */
+@keyframes stamp-drop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) rotate(-8deg) scale(1.6); }
+  70%  { opacity: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(.94); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+}
+.item.stamping .stamp { animation: stamp-drop .32s ease-out; }
+
+/* 尊重系統減少動態設定 */
+@media (prefers-reduced-motion: reduce) {
+  .category-head, .item, .item.stamping .stamp { animation: none !important; }
+  .item, .item .item-name, .item .note, .item .price { transition: none !important; }
+  .item:hover { transform: none; box-shadow: none; }
+}

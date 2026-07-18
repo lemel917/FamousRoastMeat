@@ -64,15 +64,25 @@ function renderItem(item, hasTwoPrices) {
   return li;
 }
 
-// 依 Firebase soldOut 物件換算後，切換每列的 .sold-out（動效在 Task 5 加）
+let firstApply = true; // 開頁第一次套用不播蓋章（避免一排章亂蓋）
+// 依 Firebase soldOut 物件換算後，切換每列的 .sold-out；狀態轉為賣完時播蓋章動畫
 function applySoldOut(soldOut) {
   const soldSet = resolveSoldOutIds(soldOut, INGREDIENTS);
   document.querySelectorAll(".item").forEach((el) => {
-    el.classList.toggle("sold-out", soldSet.has(el.dataset.id));
+    const nowSold = soldSet.has(el.dataset.id);
+    const wasSold = el.classList.contains("sold-out");
+    el.classList.toggle("sold-out", nowSold);
+    if (nowSold && !wasSold && !firstApply) {
+      el.classList.remove("stamping");
+      void el.offsetWidth; // 強制 reflow，讓動畫可重複觸發
+      el.classList.add("stamping");
+    }
   });
+  firstApply = false;
 }
 
 renderMenu();
+document.querySelectorAll(".item").forEach((el, i) => el.style.setProperty("--i", i));
 
 // ===== Firebase 即時同步 =====
 // SDK 以動態載入：就算 CDN 連不上，菜單本身仍照常顯示，只留同步提示。
