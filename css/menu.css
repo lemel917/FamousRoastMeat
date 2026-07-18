@@ -15,11 +15,13 @@ body { background: #f1e6c9; }
   padding: 8px 0 26px;
 }
 .logo {
-  font-size: 60px;
-  font-weight: 900;
-  letter-spacing: 12px;
-  text-indent: 12px;
-  color: #241c10;
+  line-height: 0; /* 標題改用手寫毛筆字圖檔（名門燒臘菜單_手寫臘版.jpg 擷取） */
+}
+.logo-img {
+  height: 84px;
+  width: auto;
+  max-width: 92%;
+  vertical-align: middle;
 }
 .menu-header::before,
 .menu-header::after {
@@ -151,7 +153,7 @@ body { background: #f1e6c9; }
 }
 @media (max-width: 600px) {
   body { padding: 10px; }
-  .logo { font-size: 40px; letter-spacing: 8px; }
+  .logo-img { height: 54px; }
   .item-lists { grid-template-columns: 1fr; }
   .category-title { font-size: 25px; }
   .item { grid-template-columns: 1fr 52px 52px; min-height: 54px; }
