@@ -18,9 +18,10 @@ body { background: #f1e6c9; }
   line-height: 0; /* 標題改用手寫毛筆字圖檔（名門燒臘菜單_手寫臘版.jpg 擷取） */
 }
 .logo-img {
-  height: 72px;
-  width: auto;
-  max-width: 92%;
+  /* 雲紋內緣固定在中線兩側 200px 外（見 ::before/::after 的 50%-380px+180px），
+     標題最寬 374px：盡量大、且左右各留約 13px 不壓到雲紋；視窗變窄時自動縮 */
+  width: min(374px, calc(100% - 396px));
+  height: auto;
   vertical-align: middle;
 }
 .menu-header::before,
@@ -150,6 +151,8 @@ body { background: #f1e6c9; }
 }
 @media (max-width: 700px) {
   .menu-header::before, .menu-header::after { display: none; }
+  /* 雲紋已隱藏，標題不必再閃避，改回固定高度 */
+  .logo-img { width: auto; height: 64px; max-width: 92%; }
 }
 @media (max-width: 600px) {
   body { padding: 10px; }
