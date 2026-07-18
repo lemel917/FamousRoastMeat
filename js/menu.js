@@ -1,4 +1,5 @@
 // 菜單頁：先用本地 MENU_DATA 渲染（離線也看得到菜單），賣完狀態由 Firebase 即時套用（Task 4）。
+import { resolveSoldOutIds } from "./soldout.js";
 
 function renderMenu() {
   const root = document.getElementById("menu-root");
@@ -59,10 +60,11 @@ function renderItem(item, hasTwoPrices) {
   return li;
 }
 
-// 依 Firebase soldOut 物件（如 {b01:true}）切換每列的 .sold-out
+// 依 Firebase soldOut 物件換算後，切換每列的 .sold-out（動效在 Task 5 加）
 function applySoldOut(soldOut) {
+  const soldSet = resolveSoldOutIds(soldOut, INGREDIENTS);
   document.querySelectorAll(".item").forEach((el) => {
-    el.classList.toggle("sold-out", soldOut[el.dataset.id] === true);
+    el.classList.toggle("sold-out", soldSet.has(el.dataset.id));
   });
 }
 
