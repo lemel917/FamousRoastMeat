@@ -1,6 +1,6 @@
 // 菜單資料：要改菜單（品名/價格/標籤）就改這個檔案，改完 push 上 GitHub 即生效。
 // id 是品項的固定編號，Firebase 的賣完狀態靠它對應，「不要」更動既有 id。
-const MENU_DATA = {
+var MENU_DATA = {
   bento: {
     title: "飯類主餐",
     columns: ["一般", "加肉"],
@@ -50,7 +50,7 @@ const MENU_DATA = {
 // 食材開關 → 連動品項對照表（賣完換算的單一事實來源）。
 // 任一食材賣完，其 items 內所有品項都標賣完；b20 自選三寶飯不屬任何食材，永遠供應。
 // 食材開關只管「飯類主餐」；拼盤與單點（含叉燒一份/燒肉一份/油雞腿一隻）一律由拼盤區自己的開關控制，不連動。
-const INGREDIENTS = [
+var INGREDIENTS = [
   { id: "chashao", name: "叉燒", items: ["b01", "b03", "b04", "b05", "b06", "b09", "b16", "b18"] },
   { id: "shaorou", name: "燒肉", items: ["b06", "b08", "b09", "b10", "b11", "b12"] },
   { id: "shaoya", name: "燒鴨", items: ["b02", "b03", "b05", "b06", "b07", "b11", "b14", "b18"] },

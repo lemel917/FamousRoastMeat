@@ -164,6 +164,62 @@ body { background: #f1e6c9; }
   .price { font-size: 19px; }
 }
 
+/* ===== 大型橫式螢幕（1920×1080 電子看板）：整份菜單一頁填滿、不捲動 =====
+   同時限定高度 ≥1000px，避免有瀏覽器工具列、可視高度不足的桌機被裁切；
+   店內螢幕是全螢幕 1080，會套用此版；一般桌機/手機維持原本可捲動版面。 */
+@media (min-width: 1600px) and (min-height: 1000px) {
+  html, body { height: 100%; }
+  body { padding: 0; overflow: hidden; }
+
+  .sheet {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 22px 64px 26px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 頁首壓縮，把高度讓給菜單本體 */
+  .menu-header { padding: 4px 0 16px; }
+  .logo-img { width: auto; height: 104px; max-width: calc(100% - 520px); }
+  .menu-header::before, .menu-header::after { top: 50%; width: 230px; height: 44px; }
+  .menu-header::before { left: max(0px, calc(50% - 470px)); }
+  .menu-header::after  { right: max(0px, calc(50% - 470px)); }
+
+  /* 菜單本體吃滿剩餘高度 */
+  .menu-columns { flex: 1 1 auto; min-height: 0; padding-top: 6px; }
+  .category { display: flex; flex-direction: column; min-height: 0; }
+  .category:first-child { padding-right: 64px; }
+  .category:last-child { padding-left: 64px; }
+
+  .category-head { margin-bottom: 16px; }
+  .category-title { font-size: 42px; letter-spacing: 8px; padding-bottom: 18px; }
+  .category-title::after { height: 18px; }
+
+  .item-lists { flex: 1 1 auto; min-height: 0; gap: 0 64px; }
+  /* 拼盤與單點：品名較長又帶（人份）說明，改單欄整排顯示，不折行；
+     13 列較多，列高壓縮一點讓整欄與左側等高、同頁塞得下 */
+  .category:last-child .item-lists { grid-template-columns: 1fr; }
+  .category:last-child .item { padding: 9px 0; }
+
+  .price-cols { grid-template-columns: 1fr 80px 80px; font-size: 18px; padding: 6px 0; }
+
+  .item {
+    grid-template-columns: 1fr 80px 80px;
+    min-height: 0;
+    padding: 15px 0;
+  }
+  .item.platter { grid-template-columns: 1fr auto; }
+
+  .item-name { font-size: 27px; letter-spacing: 3px; }
+  .price { font-size: 31px; }
+  .tag { font-size: 16px; padding: 3px 12px; margin-left: 10px; }
+  .note { font-size: 18px; }
+  .item.sold-out .stamp { font-size: 25px; padding: 2px 14px; letter-spacing: 4px; }
+}
+
 /* ===== 微動效 ===== */
 /* 進場：淡入＋上浮，依索引 stagger；fill 用 backwards 才不會鎖住 hover 的 transform */
 @keyframes fade-up {
